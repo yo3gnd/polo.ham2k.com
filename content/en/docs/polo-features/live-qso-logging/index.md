@@ -9,9 +9,9 @@ Live QSO Logging sends newly logged QSOs out of PoLo, in real time, to other sof
 This is a live forwarding feature, not a sync engine, backup system, or logbook merge tool. It takes a QSO the moment you log it and hands it off elsewhere. Nothing more exotic than that.
 
 {{% pageinfo %}}
-On Android, this feature appears as **Logging → Live QSO logging**.
+On both Android and iPhone, this feature appears as **Logging → Live QSO logging**.
 
-On iPhone, only the HTTP option is currently available, and the menu is labelled **Logging → Custom HTTP QSO endpoint**.
+On iPhone, `UDP ADIF` and `N1MM Message` use unicast targets. Broadcast and multicast are not supported there.
 {{% /pageinfo %}}
 
 ## Software configuration guide
@@ -56,7 +56,7 @@ Confirmed with N1MM v. 1.0.11031.0.
 
 ### Log4OM
 
-#### Method 1: N1MM Broadcast
+#### Method 1: N1MM Message
 
 1. Go to **Settings → Program Configuration → Software Integration → Connections → UDP Inbound**.
 2. Add a new UDP inbound connection.
@@ -68,7 +68,7 @@ Confirmed with N1MM v. 1.0.11031.0.
 
 Next, in PoLo:
 
-1. Go to **Logging → Live QSO logging → N1MM Broadcast**.
+1. Go to **Logging → Live QSO logging → N1MM Message**.
 2. Confirm **Enabled** is set.
 3. Set the destination to the computer running Log4OM, for example `192.168.73.73:12060`.
 4. If desired, enable **Skip empty fields** on constrained connections.
@@ -151,7 +151,7 @@ Confirmed with AC Log v. 7.0.12.
 
 ### HRD
 
-#### Method 1: N1MM Broadcast
+#### Method 1: N1MM Message
 
 1. Go to **Tools → Configure → QSO Forwarding**.
 2. In **UDP Send**, disable **Forward logbook changes**.
@@ -161,7 +161,7 @@ Confirmed with AC Log v. 7.0.12.
 
 Next, in PoLo:
 
-1. Go to **Logging → Live QSO logging → N1MM Broadcast**.
+1. Go to **Logging → Live QSO logging → N1MM Message**.
 2. Confirm **Enabled** is set.
 3. Set the destination to the address and port used by the HRD UDP receive setting, for example `192.168.73.73:12060`.
 4. Use **Send test ADIF** from the settings screen until you have the desired settings locked in.
@@ -198,7 +198,7 @@ If the QSO does not appear where expected, check these first:
 
 ### Advanced
 
-- `N1MM Broadcast` can feed more than one program at the same time, but broadcast traffic ordinarily stays on the same network segment.
+- On Android, `N1MM Message` can use broadcast to feed more than one program at the same time, but that traffic ordinarily stays on the same network segment.
 - You can send live UDP traffic to a computer at home while using mobile data. If you do that without a VPN, you will need to port forward the relevant UDP port on your home network to the receiving machine.
 - The same approach also works for N1MM-style XML. In that case, send unicast traffic to your home IP and forward port `12060` to the machine receiving the XML stream.
 - Not all ham software treats the IP field the same way. In some programs it acts as a filter, in others it selects the local interface to bind to, and a few become awkward when asked to bind to a non-RFC1918 address.
